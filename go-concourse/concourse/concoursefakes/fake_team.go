@@ -2,10 +2,10 @@
 package concoursefakes
 
 import (
-	sync "sync"
+	"sync"
 
-	atc "github.com/concourse/concourse/atc"
-	concourse "github.com/concourse/concourse/go-concourse/concourse"
+	"github.com/concourse/concourse/atc"
+	"github.com/concourse/concourse/go-concourse/concourse"
 )
 
 type FakeTeam struct {
@@ -474,24 +474,22 @@ type FakeTeam struct {
 		result3 bool
 		result4 error
 	}
-	PipelineConfigStub        func(string) (atc.Config, atc.RawConfig, string, bool, error)
+	PipelineConfigStub        func(string) (atc.Config, string, bool, error)
 	pipelineConfigMutex       sync.RWMutex
 	pipelineConfigArgsForCall []struct {
 		arg1 string
 	}
 	pipelineConfigReturns struct {
 		result1 atc.Config
-		result2 atc.RawConfig
-		result3 string
-		result4 bool
-		result5 error
+		result2 string
+		result3 bool
+		result4 error
 	}
 	pipelineConfigReturnsOnCall map[int]struct {
 		result1 atc.Config
-		result2 atc.RawConfig
-		result3 string
-		result4 bool
-		result5 error
+		result2 string
+		result3 bool
+		result4 error
 	}
 	RenamePipelineStub        func(string, string) (bool, error)
 	renamePipelineMutex       sync.RWMutex
@@ -2668,7 +2666,7 @@ func (fake *FakeTeam) PipelineBuildsReturnsOnCall(i int, result1 []atc.Build, re
 	}{result1, result2, result3, result4}
 }
 
-func (fake *FakeTeam) PipelineConfig(arg1 string) (atc.Config, atc.RawConfig, string, bool, error) {
+func (fake *FakeTeam) PipelineConfig(arg1 string) (atc.Config, string, bool, error) {
 	fake.pipelineConfigMutex.Lock()
 	ret, specificReturn := fake.pipelineConfigReturnsOnCall[len(fake.pipelineConfigArgsForCall)]
 	fake.pipelineConfigArgsForCall = append(fake.pipelineConfigArgsForCall, struct {
@@ -2680,10 +2678,10 @@ func (fake *FakeTeam) PipelineConfig(arg1 string) (atc.Config, atc.RawConfig, st
 		return fake.PipelineConfigStub(arg1)
 	}
 	if specificReturn {
-		return ret.result1, ret.result2, ret.result3, ret.result4, ret.result5
+		return ret.result1, ret.result2, ret.result3, ret.result4
 	}
 	fakeReturns := fake.pipelineConfigReturns
-	return fakeReturns.result1, fakeReturns.result2, fakeReturns.result3, fakeReturns.result4, fakeReturns.result5
+	return fakeReturns.result1, fakeReturns.result2, fakeReturns.result3, fakeReturns.result4
 }
 
 func (fake *FakeTeam) PipelineConfigCallCount() int {
@@ -2692,7 +2690,7 @@ func (fake *FakeTeam) PipelineConfigCallCount() int {
 	return len(fake.pipelineConfigArgsForCall)
 }
 
-func (fake *FakeTeam) PipelineConfigCalls(stub func(string) (atc.Config, atc.RawConfig, string, bool, error)) {
+func (fake *FakeTeam) PipelineConfigCalls(stub func(string) (atc.Config, string, bool, error)) {
 	fake.pipelineConfigMutex.Lock()
 	defer fake.pipelineConfigMutex.Unlock()
 	fake.PipelineConfigStub = stub
@@ -2705,39 +2703,36 @@ func (fake *FakeTeam) PipelineConfigArgsForCall(i int) string {
 	return argsForCall.arg1
 }
 
-func (fake *FakeTeam) PipelineConfigReturns(result1 atc.Config, result2 atc.RawConfig, result3 string, result4 bool, result5 error) {
+func (fake *FakeTeam) PipelineConfigReturns(result1 atc.Config, result2 string, result3 bool, result4 error) {
 	fake.pipelineConfigMutex.Lock()
 	defer fake.pipelineConfigMutex.Unlock()
 	fake.PipelineConfigStub = nil
 	fake.pipelineConfigReturns = struct {
 		result1 atc.Config
-		result2 atc.RawConfig
-		result3 string
-		result4 bool
-		result5 error
-	}{result1, result2, result3, result4, result5}
+		result2 string
+		result3 bool
+		result4 error
+	}{result1, result2, result3, result4}
 }
 
-func (fake *FakeTeam) PipelineConfigReturnsOnCall(i int, result1 atc.Config, result2 atc.RawConfig, result3 string, result4 bool, result5 error) {
+func (fake *FakeTeam) PipelineConfigReturnsOnCall(i int, result1 atc.Config, result2 string, result3 bool, result4 error) {
 	fake.pipelineConfigMutex.Lock()
 	defer fake.pipelineConfigMutex.Unlock()
 	fake.PipelineConfigStub = nil
 	if fake.pipelineConfigReturnsOnCall == nil {
 		fake.pipelineConfigReturnsOnCall = make(map[int]struct {
 			result1 atc.Config
-			result2 atc.RawConfig
-			result3 string
-			result4 bool
-			result5 error
+			result2 string
+			result3 bool
+			result4 error
 		})
 	}
 	fake.pipelineConfigReturnsOnCall[i] = struct {
 		result1 atc.Config
-		result2 atc.RawConfig
-		result3 string
-		result4 bool
-		result5 error
-	}{result1, result2, result3, result4, result5}
+		result2 string
+		result3 bool
+		result4 error
+	}{result1, result2, result3, result4}
 }
 
 func (fake *FakeTeam) RenamePipeline(arg1 string, arg2 string) (bool, error) {
